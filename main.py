@@ -23,17 +23,19 @@ class Queue:
         if len(char_list) < 1:
             return
 
-        self.root = self.Node(list(char_list.keys())[0],list(char_list.values())[0])
+        keys = list(char_list.keys())
+        vals = list(char_list.values())
 
-        for char in list(char_list.keys())[1:]:
-            self.add_node(char,char_list[char])
+        self.root = self.Node(keys[0],vals[0])
+
+        for i in range(1,len(vals)):
+            self.add_node(keys[i],vals[i])
 
     def find_first_empty(self) -> Node:
 
         check_queue = [self.root]
 
         while check_queue:
-
 
             if check_queue[0].l:
                 check_queue.append(check_queue[0].l)
@@ -75,9 +77,8 @@ class Queue:
             check_queue.pop(0)
 
     def add_node(self,val:Union[int,object],freq:float) -> None:
-            
-        new_node = self.find_first_empty()
 
+        new_node = self.find_first_empty()
         new_node.val = val
         new_node.freq = freq
         
@@ -89,7 +90,6 @@ class Queue:
             new_node = new_node.parrent
             if not new_node.parrent:
                 break
-
 
     def sort_one_node_from_top(self,root:Node) -> Node:
         
@@ -118,14 +118,27 @@ class Queue:
 
         return root
 
-    
-
     def next(self) -> object:
+
         if self.root == None:
             return None
         
         temp = self.root
+
         pushed_node = self.find_last_node()
+
+        print(pushed_node.val)
+
+        if self.root == pushed_node:
+            self.root = None
+            return temp
+
+        if pushed_node.parrent.l.val == pushed_node.val:
+            pushed_node.parrent.l = None
+        else:
+            pushed_node.parrent.r = None
+
+
         if pushed_node == self.root:
             self.root = None
             return temp
@@ -142,9 +155,6 @@ class Queue:
         self.root = self.sort_one_node_from_top(self.root)
 
         return temp
-
-
-
 
 
 def count_chars(s:str) -> dict:
