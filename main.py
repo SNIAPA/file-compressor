@@ -93,8 +93,10 @@ class Queue:
 
     def sort_one_node_from_top(self,root:Node) -> Node:
 
-        r = -1
-        l = -1
+        print(root.val)
+
+        r = 0
+        l = 0
 
         if root.l:
             l = root.l.freq
@@ -102,19 +104,23 @@ class Queue:
         if root.r:
             r = root.r.freq
         
-        if (l < r or ( l == r and l != 0)) and l > 0:
+        if (root.freq > l and l > 0) and (r > l or r == 0):
             root.freq,root.l.freq = root.l.freq,root.freq
             root.val,root.l.val = root.l.val,root.val
-        elif l > r and r > 0:
+            print(1)
+        elif r > 0:
             root.freq,root.l.freq = root.l.freq,root.freq
             root.val,root.r.val = root.r.val,root.val
+            print(2)
         
         if root.l:
+            print(3)
             root.l = self.sort_one_node_from_top(root.l)
         
         if root.r:
-            root.r = self.sort_one_node_from_top(root.r)
+            print(4)
 
+            root.r = self.sort_one_node_from_top(root.r)
 
         return root
 
@@ -136,20 +142,24 @@ class Queue:
         else:
             pushed_node.parrent.r = None
         
+
         self.root = pushed_node
 
         if temp.l:
-            pushed_node.l = temp.l
+            if temp.l != self.root:
+                self.root.l = temp.l
 
         if temp.r:
-            pushed_node.r = temp.r
-        pushed_node.parrent = None
+            if temp.r != self.root:
+                self.root.r = temp.r
+        self.root.parrent = None
 
         
+
         self.root = self.sort_one_node_from_top(self.root)
 
-        return temp
 
+        return temp
 
 def count_chars(s:str) -> dict:
     

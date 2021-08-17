@@ -94,3 +94,15 @@ def test_add_and_next():
 
     q.add_node('a',1)     
     assert q.next().val == 'a'
+
+
+def test_first_two():
+
+    test_dict = {'a':1,'b':2,'c':3}
+
+    q = Queue(test_dict)
+
+
+    assert q.next().val == 'a'
+
+    assert q.next().val == 'b'
