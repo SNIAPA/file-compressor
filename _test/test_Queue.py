@@ -51,7 +51,6 @@ def test_add_node():
 
     q = Queue(test_dict)
 
-    print(q.root.val)
 
     assert q.root.val == 'b'
 
@@ -83,3 +82,15 @@ def test_find_last_node():
 
     q = Queue(test_dict)
     assert q.find_last_node().val == 'c'
+
+def test_add_and_next():
+    
+    
+    test_dict = {'a':3,'b':2,'c':1}
+
+    q = Queue(test_dict)
+
+    assert q.next().val == 'a'
+
+    q.add_node('a',1)     
+    assert q.next().val == 'b'

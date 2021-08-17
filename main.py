@@ -93,7 +93,7 @@ class Queue:
 
     def sort_one_node_from_top(self,root:Node) -> Node:
         
-        print(root.val)
+        print('root: ',root.val)
 
         r = 0
         l = 0
@@ -106,8 +106,10 @@ class Queue:
         
         if l > r or ( l == r and l != 0):
             root.freq,root.l.freq = root.l.freq,root.freq
+            root.val,root.l.val = root.l.val,root.val
         elif l < r:
             root.freq,root.l.freq = root.l.freq,root.freq
+            root.val,root.r.val = root.r.val,root.val
         
         if root.l:
             root.l = self.sort_one_node_from_top(root.l)
@@ -126,9 +128,7 @@ class Queue:
         temp = self.root
 
         pushed_node = self.find_last_node()
-
-        print(pushed_node.val)
-
+        
         if self.root == pushed_node:
             self.root = None
             return temp
@@ -137,11 +137,6 @@ class Queue:
             pushed_node.parrent.l = None
         else:
             pushed_node.parrent.r = None
-
-
-        if pushed_node == self.root:
-            self.root = None
-            return temp
         
         self.root = pushed_node
 
@@ -152,6 +147,7 @@ class Queue:
             pushed_node.r = temp.r
         pushed_node.parrent = None
 
+        
         self.root = self.sort_one_node_from_top(self.root)
 
         return temp
