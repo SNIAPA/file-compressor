@@ -82,7 +82,7 @@ class Queue:
         new_node.val = val
         new_node.freq = freq
         
-        while new_node.parrent.freq < new_node.freq:
+        while new_node.parrent.freq > new_node.freq:
 
             new_node.freq,new_node.parrent.freq =new_node.parrent.freq,new_node.freq
             new_node.val,new_node.parrent.val =new_node.parrent.val,new_node.val
@@ -92,11 +92,9 @@ class Queue:
                 break
 
     def sort_one_node_from_top(self,root:Node) -> Node:
-        
-        print('root: ',root.val)
 
-        r = 0
-        l = 0
+        r = -1
+        l = -1
 
         if root.l:
             l = root.l.freq
@@ -104,10 +102,10 @@ class Queue:
         if root.r:
             r = root.r.freq
         
-        if l > r or ( l == r and l != 0):
+        if (l < r or ( l == r and l != 0)) and l > 0:
             root.freq,root.l.freq = root.l.freq,root.freq
             root.val,root.l.val = root.l.val,root.val
-        elif l < r:
+        elif l > r and r > 0:
             root.freq,root.l.freq = root.l.freq,root.freq
             root.val,root.r.val = root.r.val,root.val
         
@@ -167,7 +165,16 @@ def count_chars(s:str) -> dict:
 
     return dict(sorted(seen_chars.items(), key=lambda item: item[1]))
 
+class Node:
     
+    val = None
+    l = None
+    r = None
+    parrent = None
+
+    def __init__(self,val:Union[str,object],parrent:object = None) -> None:
+        self.val = val
+        self.parrent = parrent 
 
 def compress(s:str) -> str:
 
