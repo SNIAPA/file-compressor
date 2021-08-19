@@ -189,17 +189,16 @@ class Node:
     def __init__(self,val:str,parrent:object = None) -> None:
         self.val = val
         self.parrent = parrent
-    def repr(self,tabs = 0) -> str:
-        return 'asd'
-        # return_str = f'val:{self.val}\n{"  "*(tabs)}{"{"}'
+    def repr(self,s = '') -> str:
+        return_str = f'val:{self.val}\n{"  "*(tabs)}{"{"}'
 
-        # if self.l:
-        #     return_str+=f'\n {"  "*(tabs+1)}L: {self.l.repr(tabs=tabs+1)}'
+        if self.l:
+            return_str+=f'\n {"  "*(tabs+1)}L: {self.l.repr(tabs=tabs+1)}'
 
-        # if self.r:
-        #     return_str+=f'\n {"  "*(tabs+1)}R: {self.r.repr(tabs=tabs+1)}'
+        if self.r:
+            return_str+=f'\n {"  "*(tabs+1)}R: {self.r.repr(tabs=tabs+1)}'
 
-        # return return_str+f'\n{"  "*(tabs)}{"}"}'
+        return return_str+f'\n{"  "*(tabs)}{"}"}'
     
     def __repr__(self) -> str:
         return self.repr()
