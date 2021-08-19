@@ -189,8 +189,21 @@ class Node:
     def __init__(self,val:str,parrent:object = None) -> None:
         self.val = val
         self.parrent = parrent
-    def __repr__(self,tabs = 0) -> str:
-        return f'{"  "*tabs}val:{self.val} \n L:{self.l.__repr__(tabs+1)} \n R:{self.r.__repr__(tabs+1)}'
+    def repr(self,tabs = 0) -> str:
+        return 'asd'
+        # return_str = f'val:{self.val}\n{"  "*(tabs)}{"{"}'
+
+        # if self.l:
+        #     return_str+=f'\n {"  "*(tabs+1)}L: {self.l.repr(tabs=tabs+1)}'
+
+        # if self.r:
+        #     return_str+=f'\n {"  "*(tabs+1)}R: {self.r.repr(tabs=tabs+1)}'
+
+        # return return_str+f'\n{"  "*(tabs)}{"}"}'
+    
+    def __repr__(self) -> str:
+        return self.repr()
+
 
 def create_huffmans_encoding(s:str) -> str:
 
