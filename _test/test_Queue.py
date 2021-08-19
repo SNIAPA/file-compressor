@@ -1,19 +1,21 @@
 import sys 
 sys.path.append('../file compressor')
 
-from main import Queue 
-
+from main import Encode 
 def test_empty():
-
+    
+    e = Encode('')
     test_dict = {}
 
-    assert Queue(test_dict).next() == None
+    assert e.Queue(test_dict).next() == None
 
 def test_next_1():
+    
+    e = Encode('')
 
     test_dict = {'a':1}
 
-    q = Queue(test_dict)
+    q = e.Queue(test_dict)
 
     one = q.next()
 
@@ -25,10 +27,12 @@ def test_next_1():
     assert two == None
 
 def test_next_2():
+    
+    e = Encode('')
 
     test_dict = {'a':1,'b':2}
 
-    q = Queue(test_dict)
+    q = e.Queue(test_dict)
 
     one = q.next()
 
@@ -46,10 +50,12 @@ def test_next_2():
 
 
 def test_add_node():
+    
+    e = Encode('')
 
     test_dict = {'b':3,'a':2,'c':1}
 
-    q = Queue(test_dict)
+    q = e.Queue(test_dict)
 
 
     assert q.root.val == 'c'
@@ -63,32 +69,40 @@ def test_add_node():
 
 
 def test_find_last_node():
+    
+    e = Encode('')
 
     test_dict = {'a':3,'b':2,'c':1}
 
-    q = Queue(test_dict)
+    q = e.Queue(test_dict)
 
     assert q.find_last_node().val == 'c'
 
 def test_sort_one_node_from_top():
     
+    e = Encode('')
+    
     test_dict = {'a':3,'b':2,'c':1}
 
-    q = Queue(test_dict)
+    q = e.Queue(test_dict)
 
 def test_find_last_node():
     
+    e = Encode('')
+    
     test_dict = {'a':1,'b':2,'c':3}
 
-    q = Queue(test_dict)
+    q = e.Queue(test_dict)
     assert q.find_last_node().val == 'c'
 
 def test_add_and_next():
     
+    e = Encode('')
+    
     
     test_dict = {'a':1,'b':2,'c':3}
 
-    q = Queue(test_dict)
+    q = e.Queue(test_dict)
 
     assert q.next().val == 'a'
 
@@ -97,10 +111,12 @@ def test_add_and_next():
 
 
 def test_first_two():
+    
+    e = Encode('')
 
     test_dict = {'a':1,'b':2,'c':3}
 
-    q = Queue(test_dict)
+    q = e.Queue(test_dict)
 
 
     assert q.next().val == 'a'
