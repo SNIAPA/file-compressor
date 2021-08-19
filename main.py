@@ -189,7 +189,7 @@ class Node:
     def __init__(self,val:str,parrent:object = None) -> None:
         self.val = val
         self.parrent = parrent
-    def repr(self,s = '') -> str:
+    def repr(self,tabs = 0) -> str:
         return_str = f'val:{self.val}\n{"  "*(tabs)}{"{"}'
 
         if self.l:
