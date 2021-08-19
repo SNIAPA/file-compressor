@@ -184,9 +184,13 @@ class Node:
     val = None
     l = None
     r = None
+    parrent = None
 
     def __init__(self,val:str,parrent:object = None) -> None:
         self.val = val
+        self.parrent = parrent
+    def __repr__(self,tabs = 0) -> str:
+        return f'{"  "*tabs}val:{self.val} \n L:{self.l.__repr__(tabs+1)} \n R:{self.r.__repr__(tabs+1)}'
 
 def create_huffmans_encoding(s:str) -> str:
 
@@ -205,26 +209,19 @@ def create_huffmans_encoding(s:str) -> str:
 
         if type(l.val) == str:
             temp_root.l = Node(l.val,temp_root)
-            print('l: ',l.val,l.freq)
         else:
             temp_root.l = l.val
-            print('l,o: ',l.freq)
 
         if type(r.val) == str:
             temp_root.r = Node(r.val,temp_root)
-            print('r: ',r.val,r.freq)
         else:
             temp_root.r = r.val
-            print('r,o: ',r.freq)
 
-        print('add: ',temp_root,l.freq + r.freq)
         q.add_node(temp_root,l.freq + r.freq)
         i+=1
 
-    main_root = q.next()
+    main_root = q.next().val
 
-    print(main_root)
-    print(main_root.val)
 
     return main_root
 
