@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 from typing import Union
 import sys
 
@@ -214,13 +215,13 @@ class Encoder:
 
         return dict(sorted(seen_chars.items(), key=lambda item: item[1]))
 
-    def get_encoded_string(self) -> None:
+    def get_encoded_string(self) -> str:
         return self.__encoded_string
     
-    def get_tree(self) -> None:
+    def get_tree(self) -> str:
 
         
-        ans = []
+        ans = ''
         queue = [self._huffmans_root]
 
         not_null_counter = 1;
@@ -230,15 +231,14 @@ class Encoder:
             if queue[0] == None:
                 queue.append(None)
                 queue.append(None)
-                ans.append(None)
                 queue.pop(0)
                 continue
             elif queue[0].val == None:
                 not_null_counter-=1
-                ans.append('Branch')
+                ans += '0x0'
             else:
                 not_null_counter-=1
-                ans.append(queue[0].val)
+                ans += str(hex(ord(queue[0].val)))
 
             if queue[0].l:
                 not_null_counter+=1;
@@ -254,7 +254,7 @@ class Encoder:
 
             queue.pop(0)
         
-        return ans
+        return ans[3:].replace('0x','x')
 
     def __init__(self,input_string: str) -> None:
         if input_string == '':
@@ -308,7 +308,7 @@ class Encoder:
         else:
             return last.val
 
-    def __create_bin_map(self,node_dict:dict):
+    def __create_bin_map(self,node_dict:dict) -> dict:
         bin_dict = {}
         keys = list(node_dict.keys())
         nodes = list(node_dict.values())
@@ -341,4 +341,4 @@ if __name__ == "__main__":
     else:    
         e = Encoder(sys.argv[1])
     print(e.get_encoded_string())
-    print(e.get_tree()[1:])
+    print(e.get_tree())
