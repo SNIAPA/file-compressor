@@ -236,7 +236,7 @@ class Encoder:
             else:
                 not_null_counter-=1
                 ans.append(queue[0].val)
-                
+
             if queue[0].l:
                 not_null_counter+=1;
                 queue.append(queue[0].l)
@@ -334,7 +334,7 @@ class Encoder:
     
 if __name__ == "__main__":
     e = Encoder(input('Input string: '))
-    print(e.get_encoded_string())
+    print(hex(int(e.get_encoded_string(),2)))
     print(e.get_tree())
 
 
