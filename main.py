@@ -220,25 +220,31 @@ class Encoder:
         ans = []
         queue = [self._huffmans_root]
 
+        not_null_counter = 1;
 
-        while queue:
-            
+        while len(queue)>0:
+            if not_null_counter < 1:
+                break
+
             if queue[0] == None:
                 ans.append(None)
-                print(ans[-1])
+                queue.pop(0)
                 continue
             elif queue[0].val == None:
-                ans.append('Node')
+                not_null_counter-=1
+                ans.append('Branch')
             else:
+                not_null_counter-=1
                 ans.append(queue[0].val)
-            print(ans[-1])
-
+                
             if queue[0].l:
+                not_null_counter+=1;
                 queue.append(queue[0].l)
             else:
                 queue.append(None)
 
             if queue[0].r:
+                not_null_counter += 1
                 queue.append(queue[0].r)
             else:
                 queue.append(None)
@@ -262,7 +268,6 @@ class Encoder:
 
         q = self.Binary_Heap(s)
         i = 0
-        print(q.length)
         while q.length > 1 :
 
             l = q.next()
@@ -289,8 +294,6 @@ class Encoder:
             i+=1
 
         last = q.next()
-
-        print(self._node_dict)
 
         if type(last.val) == str:
             
