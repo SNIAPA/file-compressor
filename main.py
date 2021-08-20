@@ -169,20 +169,6 @@ class Encoder:
 
             return temp
 
-    def __count_chars(self,s:str) -> dict:
-        
-        seen_chars = {}
-
-        for char in s:
-
-            if char in seen_chars.keys():
-                seen_chars[char] += 1
-                continue
-
-            seen_chars[char] = 1
-
-        return dict(sorted(seen_chars.items(), key=lambda item: item[1]))
-
     class Node:
         
         val = None
@@ -214,9 +200,22 @@ class Encoder:
     __encoded_string = None
     _char_count = None
     
+    def __count_chars(self,s:str) -> dict:
+        
+        seen_chars = {}
+
+        for char in s:
+
+            if char in seen_chars.keys():
+                seen_chars[char] += 1
+                continue
+
+            seen_chars[char] = 1
+
+        return dict(sorted(seen_chars.items(), key=lambda item: item[1]))
+
     def get_encoded_string(self) -> None:
         return self.__encoded_string
-    
     
     def get_tree(self) -> None:
 
@@ -251,7 +250,6 @@ class Encoder:
         
         return ans
 
-
     def __init__(self,input_string: str) -> None:
         if input_string == '':
             return 
@@ -267,8 +265,8 @@ class Encoder:
 
         q = self.Binary_Heap(s)
         i = 0
-        
-        while q.length > 1:
+        print(q.length)
+        while q.length > 1 :
 
             l = q.next()
             r = q.next()
@@ -293,7 +291,19 @@ class Encoder:
             q.add_node(root,l.freq + r.freq)
             i+=1
 
-        return q.next().val
+        last = q.next()
+
+        print(self._node_dict)
+
+        if type(last.val) == str:
+            
+            ans =  self.Node(None)
+            ans.l = self.Node(last.val,ans)
+            self._node_dict[ans.l.val] = ans.l
+            return ans
+
+        else:
+            return last.val
 
     def __create_bin_map(self,__node_dict:dict):
         bin_dict = {}
@@ -304,11 +314,12 @@ class Encoder:
             node = nodes[i]
             bin_repr = ''
             while node.parrent:
-
-                if node.val == node.parrent.l.val:
-                    bin_repr+='0'
-                if node.val == node.parrent.r.val:
-                    bin_repr+='1'
+                if node.parrent.l:
+                    if node.val == node.parrent.l.val:
+                        bin_repr+='0'
+                if node.parrent.r:
+                    if node.val == node.parrent.r.val:
+                        bin_repr+='1'
 
                 node = node.parrent
 
