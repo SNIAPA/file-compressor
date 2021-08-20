@@ -1,10 +1,9 @@
 
 import sys
 
-def main(s,l):
+def main(s:str,l:str) ->str:
     tree = l.replace('[','').replace(']','').replace("'",'').replace('"','').replace(',','').split(' ')
-    print(tree)
-
+    
     ans = ''
     i = 0
     counter = 0
@@ -22,6 +21,6 @@ def main(s,l):
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
-        print(main(input('Input encoded string: '),input("input tree list: ")))
+        print(main(input('Input encoded string: '),input("input node list: ")))
     else:    
         print(main(sys.argv[1],sys.argv[2]))

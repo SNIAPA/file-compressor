@@ -224,11 +224,11 @@ class Encoder:
 
         not_null_counter = 1;
 
-        while len(queue)>0:
-            if not_null_counter < 1:
-                break
+        while not_null_counter > 0:
 
             if queue[0] == None:
+                queue.append(None)
+                queue.append(None)
                 ans.append(None)
                 queue.pop(0)
                 continue
