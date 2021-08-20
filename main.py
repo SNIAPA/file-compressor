@@ -176,19 +176,19 @@ class Encoder:
         def __init__(self,val:str,parrent:object = None) -> None:
             self.val = val
             self.parrent = parrent
-        def repr(self,tabs = 0) -> str:
-            return_str = f'val:{self.val}\n{"  "*(tabs)}{"{"}'
+        # def repr(self,tabs = 0) -> str:
+        #     return_str = f'val:{self.val}\n{"  "*(tabs)}{"{"}'
 
-            if self.l:
-                return_str+=f'\n {"  "*(tabs+1)}L: {self.l.repr(tabs=tabs+1)}'
+        #     if self.l:
+        #         return_str+=f'\n {"  "*(tabs+1)}L: {self.l.repr(tabs=tabs+1)}'
 
-            if self.r:
-                return_str+=f'\n {"  "*(tabs+1)}R: {self.r.repr(tabs=tabs+1)}'
+        #     if self.r:
+        #         return_str+=f'\n {"  "*(tabs+1)}R: {self.r.repr(tabs=tabs+1)}'
 
-            return return_str+f'\n{"  "*(tabs)}{"}"}'
+        #     return return_str+f'\n{"  "*(tabs)}{"}"}'
         
-        def __repr__(self) -> str:
-            return self.repr()
+        # def __repr__(self) -> str:
+        #     return self.repr()
 
     _huffmans_root = None
     _node_dict = {}
@@ -305,25 +305,25 @@ class Encoder:
         else:
             return last.val
 
-    def __create_bin_map(self,__node_dict:dict):
+    def __create_bin_map(self,node_dict:dict):
         bin_dict = {}
-        keys = list(__node_dict.keys())
-        nodes = list(__node_dict.values())
-        for i in range(len(__node_dict)):
+        keys = list(node_dict.keys())
+        nodes = list(node_dict.values())
+        for i in range(len(node_dict)):
             key = keys[i]
             node = nodes[i]
             bin_repr = ''
-            while node.parrent:
+            while node.parrent != None:
                 if node.parrent.l:
-                    if node.val == node.parrent.l.val:
+                    if node == node.parrent.l:
                         bin_repr+='0'
                 if node.parrent.r:
-                    if node.val == node.parrent.r.val:
+                    if node == node.parrent.r:
                         bin_repr+='1'
 
                 node = node.parrent
 
-            bin_dict[key] = bin_repr
+            bin_dict[key] = bin_repr[::-1]
         return bin_dict
 
     def _encode_string(self) -> str:
@@ -334,8 +334,5 @@ class Encoder:
     
 if __name__ == "__main__":
     e = Encoder(input('Input string: '))
-    print(hex(int(e.get_encoded_string(),2)))
+    print(e.get_encoded_string())
     print(e.get_tree())
-
-
-
