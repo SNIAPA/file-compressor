@@ -4,8 +4,6 @@ from random import randint
 class Encoder:
     class Binary_Heap:
 
-        class test:
-            pass
 
         class Node:
             
