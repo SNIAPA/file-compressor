@@ -1,4 +1,6 @@
 from typing import Union
+import sys
+
 
 class Encoder:
     class Binary_Heap:
@@ -333,6 +335,9 @@ class Encoder:
         return ans
     
 if __name__ == "__main__":
-    e = Encoder(input('Input string: '))
+    if len(sys.argv) != 2:
+        e = Encoder(input('Input  string: '))
+    else:    
+        e = Encoder(sys.argv[1])
     print(e.get_encoded_string())
-    print(e.get_tree())
+    print(e.get_tree()[1:])
