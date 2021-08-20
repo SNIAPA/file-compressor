@@ -1,8 +1,11 @@
 from typing import Union
 from random import randint
 
-class Encode:
-    class Queue:
+class Encoder:
+    class Binary_Heap:
+
+        class test:
+            pass
 
         class Node:
             
@@ -166,7 +169,7 @@ class Encode:
 
             return temp
 
-    def count_chars(self,s:str) -> dict:
+    def __count_chars(self,s:str) -> dict:
         
         seen_chars = {}
 
@@ -204,21 +207,65 @@ class Encode:
         def __repr__(self) -> str:
             return self.repr()
 
-    huffmans_root = None
-    node_dict = {}
-    bin_dict = {}
-    input_string = None
+    _huffmans_root = None
+    _node_dict = {}
+    _bin_dict = {}
+    __input_string = None
+    __encoded_string = None
+    _char_count = None
+    
+    def get_encoded_string(self) -> None:
+        return self.__encoded_string
+    
+    
+    def get_tree(self) -> None:
+
+        
+        ans = []
+        queue = [self._huffmans_root]
+
+
+        while queue:
+            
+            if queue[0] == None:
+                ans.append(None)
+                print(ans[-1])
+                continue
+            elif queue[0].val == None:
+                ans.append('Node')
+            else:
+                ans.append(queue[0].val)
+            print(ans[-1])
+
+            if queue[0].l:
+                queue.append(queue[0].l)
+            else:
+                queue.append(None)
+
+            if queue[0].r:
+                queue.append(queue[0].r)
+            else:
+                queue.append(None)
+
+            queue.pop(0)
+        
+        return ans
+
+
     def __init__(self,input_string: str) -> None:
         if input_string == '':
             return 
-        self.input_string = input_string
-        self.huffmans_root = self.create_huffmans_encoding(self.count_chars(input_string))
-        self.bin_dict = self.create_bin_map(self.node_dict)
 
 
-    def create_huffmans_encoding(self,s:dict) -> str:
+        self.__input_string = input_string
+        self._char_count = self.__count_chars(input_string)
+        self._huffmans_root = self.__create_huffmans_encoding(self._char_count)
+        self._bin_dict = self.__create_bin_map(self._node_dict)
+        self.__encoded_string = ''.join([self._bin_dict[x] for x in self.__input_string])
 
-        q = self.Queue(s)
+    def __create_huffmans_encoding(self,s:dict) -> str:
+
+        q = self.Binary_Heap(s)
         i = 0
         
         while q.length > 1:
@@ -231,14 +278,14 @@ class Encode:
 
             if type(l.val) == str:
                 root.l = self.Node(l.val,root)
-                self.node_dict[root.l.val] = root.l
+                self._node_dict[root.l.val] = root.l
             else:
                 root.l = l.val
                 root.l.parrent = root
 
             if type(r.val) == str:
                 root.r = self.Node(r.val,root)
-                self.node_dict[root.r.val] = root.r
+                self._node_dict[root.r.val] = root.r
             else:
                 root.r = r.val
                 root.r.parrent = root
@@ -248,11 +295,11 @@ class Encode:
 
         return q.next().val
 
-    def create_bin_map(self,node_dict:dict):
+    def __create_bin_map(self,__node_dict:dict):
         bin_dict = {}
-        keys = list(node_dict.keys())
-        nodes = list(node_dict.values())
-        for i in range(len(node_dict)):
+        keys = list(__node_dict.keys())
+        nodes = list(__node_dict.values())
+        for i in range(len(__node_dict)):
             key = keys[i]
             node = nodes[i]
             bin_repr = ''
@@ -268,15 +315,16 @@ class Encode:
             bin_dict[key] = bin_repr
         return bin_dict
 
-    def encode_string(self) -> str:
+    def _encode_string(self) -> str:
         
-        ans = ''.join([self.bin_dict[x] for x in self.input_string])
+        ans = ''.join([self._bin_dict[x] for x in self.__input_string])
 
         return ans
     
 if __name__ == "__main__":
-    e = Encode(input('Input string'))
-    print(e.encode_string())
+    e = Encoder(input('Input string: '))
+    print(e.get_encoded_string())
+    print(e.get_tree())
 
 
 

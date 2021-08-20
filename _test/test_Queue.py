@@ -1,21 +1,21 @@
 import sys 
 sys.path.append('../file compressor')
 
-from main import Encode 
+from main import Encoder 
 def test_empty():
     
-    e = Encode('')
+    e = Encoder('')
     test_dict = {}
 
-    assert e.Queue(test_dict).next() == None
+    assert e.Binary_Heap(test_dict).next() == None
 
 def test_next_1():
     
-    e = Encode('')
+    e = Encoder('')
 
     test_dict = {'a':1}
 
-    q = e.Queue(test_dict)
+    q = e.Binary_Heap(test_dict)
 
     one = q.next()
 
@@ -28,11 +28,11 @@ def test_next_1():
 
 def test_next_2():
     
-    e = Encode('')
+    e = Encoder('')
 
     test_dict = {'a':1,'b':2}
 
-    q = e.Queue(test_dict)
+    q = e.Binary_Heap(test_dict)
 
     one = q.next()
 
@@ -51,11 +51,11 @@ def test_next_2():
 
 def test_add_node():
     
-    e = Encode('')
+    e = Encoder('')
 
     test_dict = {'b':3,'a':2,'c':1}
 
-    q = e.Queue(test_dict)
+    q = e.Binary_Heap(test_dict)
 
 
     assert q.root.val == 'c'
@@ -70,39 +70,39 @@ def test_add_node():
 
 def test_find_last_node():
     
-    e = Encode('')
+    e = Encoder('')
 
     test_dict = {'a':3,'b':2,'c':1}
 
-    q = e.Queue(test_dict)
+    q = e.Binary_Heap(test_dict)
 
     assert q.find_last_node().val == 'c'
 
 def test_sort_one_node_from_top():
     
-    e = Encode('')
+    e = Encoder('')
     
     test_dict = {'a':3,'b':2,'c':1}
 
-    q = e.Queue(test_dict)
+    q = e.Binary_Heap(test_dict)
 
 def test_find_last_node():
     
-    e = Encode('')
+    e = Encoder('')
     
     test_dict = {'a':1,'b':2,'c':3}
 
-    q = e.Queue(test_dict)
+    q = e.Binary_Heap(test_dict)
     assert q.find_last_node().val == 'c'
 
 def test_add_and_next():
     
-    e = Encode('')
+    e = Encoder('')
     
     
     test_dict = {'a':1,'b':2,'c':3}
 
-    q = e.Queue(test_dict)
+    q = e.Binary_Heap(test_dict)
 
     assert q.next().val == 'a'
 
@@ -112,11 +112,11 @@ def test_add_and_next():
 
 def test_first_two():
     
-    e = Encode('')
+    e = Encoder('')
 
     test_dict = {'a':1,'b':2,'c':3}
 
-    q = e.Queue(test_dict)
+    q = e.Binary_Heap(test_dict)
 
 
     assert q.next().val == 'a'
