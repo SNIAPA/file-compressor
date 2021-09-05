@@ -1,12 +1,9 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 from typing import Union
 import sys
 
 
 class Encoder:
     class Binary_Heap:
-
 
         class Node:
             
@@ -180,19 +177,6 @@ class Encoder:
         def __init__(self,val:str,parrent:object = None) -> None:
             self.val = val
             self.parrent = parrent
-        # def repr(self,tabs = 0) -> str:
-        #     return_str = f'val:{self.val}\n{"  "*(tabs)}{"{"}'
-
-        #     if self.l:
-        #         return_str+=f'\n {"  "*(tabs+1)}L: {self.l.repr(tabs=tabs+1)}'
-
-        #     if self.r:
-        #         return_str+=f'\n {"  "*(tabs+1)}R: {self.r.repr(tabs=tabs+1)}'
-
-        #     return return_str+f'\n{"  "*(tabs)}{"}"}'
-        
-        # def __repr__(self) -> str:
-        #     return self.repr()
 
     _huffmans_root = None
     _node_dict = {}
@@ -325,13 +309,13 @@ class Encoder:
                         bin_repr+='1'
 
                 node = node.parrent
-
             bin_dict[key] = bin_repr[::-1]
         return bin_dict
 
     def _encode_string(self) -> str:
         
         ans = ''.join([self._bin_dict[x] for x in self.__input_string])
+        print(ans)
 
         return ans
     

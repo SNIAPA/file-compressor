@@ -1,6 +1,6 @@
 import sys 
-sys.path.append('../file compressor')
-from main import Encoder
+sys.path.append('../file-compressor')
+from encode import Encoder
 
 
 def test_tree():
@@ -24,7 +24,7 @@ def test_node_dict():
 def test_bin_dict():
     e = Encoder('caabbb')
 
-    assert e._bin_dict['a'] == '10'
+    assert e._bin_dict['a'] == '01'
     
     assert e._bin_dict['b'] == '1'
     
@@ -39,7 +39,7 @@ def test_Encoder_one_letter():
 def test_Encoder_SNIAPA():
     e = Encoder('SNIAPA')
 
-    assert e.get_encoded_string() == '00111011010010101001'
+    assert e.get_encoded_string() == '00011111001010'
 
 
 

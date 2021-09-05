@@ -1,7 +1,7 @@
 import sys 
-sys.path.append('../file compressor')
+sys.path.append('../file-compressor')
 
-from main import Encoder 
+from encode import Encoder 
 
 
 

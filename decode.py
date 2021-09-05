@@ -1,45 +1,72 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 import sys
 
-def main(s:str,l:str) ->str:
-    tree = l.split('0x')[1:]
-    tree= [chr(int(x,16)) for x in tree]
-
-    row = 1
-    offset = 0
-    i = 0
-    while i < len(tree):
-        if (tree[i] != '\x00') and ( tree[i] !=''):
-            tree = tree[:(2**(row+1))-2 + (offset**2)] + ['',''] + tree[(2**(row+1))-2 + (offset**2):]
-        if (2**row)-1  <= offset:
-            offset = 0
-            row+=1
-            i+=1
-            continue
-
-        offset+=1
-        i+=1
+class Decoder():
     
+    @staticmethod
+    def _normalize_string(s:str) -> list[str]:
+        splited_string = [x for x in s.split('x')][1:]
+
+        return [chr(int(x,16)) if x != '0' else '' for x in splited_string]
 
 
-    ans = ''
-    i = 0
-    counter = 0
-    for x in s:
-        index = (2**(i+1))-2 + ((counter)*2) + int(x)
-        if tree[index] == '\x00':
-            i+=1
-            counter = (counter*2) + int(x)
-            continue
-        i = 0
-        counter = 0
-        ans+=tree[index]
-    return(ans)
+    @staticmethod
+    def decode(s:str,l:str) -> str:
+        
+        normalized_string = Decoder._normalize_string(l)
+
+        tree = Decoder.Tree(normalized_string)
+
+        i = 0 
+        ans = ''
+        
+        while i <len(s):
+            current_node = tree.root
+
+
+            while current_node.val == None:
+                if s[i] == '1':
+                    current_node = current_node.r
+                else:
+                    current_node = current_node.l
+
+                i+=1
+            ans += current_node.val
+        return ans
+
+    class Tree():
+
+        class Node():
+
+            l = None
+            r = None
+            val = None
+
+            def __init__(self,val:str) -> None:
+                self.val = val
+        
+
+        root = Node(None)
+
+        def __init__(self,node_list:list[str]) -> None:
+
+            empty_node_queue = [self.root]
+
+            node_list = ['']+node_list
+
+            for x in node_list:
+                empty_node_queue[0]
+                if not x:
+                    empty_node_queue[0].l = self.Node(None)
+                    empty_node_queue[0].r = self.Node(None)
+                    empty_node_queue.extend([empty_node_queue[0].l,empty_node_queue[0].r])
+                else:
+                    empty_node_queue[0].val = x
+
+                empty_node_queue.pop(0)
 
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
-        print(main(input('Input encoded string: '),input("input node list: ")))
+        print(Decoder.decode(input('Input encoded string: '),input("input node list: ")))
     else:    
-        print(main(sys.argv[1],sys.argv[2]))
+        print(Decoder.decode(sys.argv[1],sys.argv[2]))
